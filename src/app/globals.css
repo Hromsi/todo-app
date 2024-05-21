@@ -16,6 +16,15 @@
   margin: 0;
 }
 
+button {
+  all: initial;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
 }
@@ -36,6 +45,6 @@ li {
   cursor: pointer;
 }
 
-input:checked + span {
+.completed {
   text-decoration: line-through;
 }
