@@ -127,7 +127,7 @@ h2 {
   list-style: none;
   display: flex;
   flex-direction: column-reverse;
-  gap: 16px;
+  /* gap: 16px; */
 }
 
 .task-container__item {
@@ -137,6 +137,7 @@ h2 {
   padding: 22px;
   background-color: #0d0714;
   border-radius: 10px;
+  margin-bottom: 16px;
 }
 
 .task-container__actions {
