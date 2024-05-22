@@ -17,6 +17,7 @@ export default function RootLayout({
 	return (
 		<html lang="ru">
 			<body className={inter.className}>{children}</body>
+			{/* <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script> */}
 		</html>
 	);
 }

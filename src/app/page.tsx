@@ -65,39 +65,63 @@ export default function Home() {
 	const completedTasks = todos.filter(todo => todo.completed).length;
 
 	return (
-		<main className={styles.main}>
-			<div className="App">
-				<label>
-					<input 
-						placeholder="new todo"
-						value={text} 
-						onChange={e => setText(e.target.value)}
-					/>
-					<button onClick={() => addTodo(text)}><img src="/plus.svg" width="25" height="25"/></button>
-				</label>
-				<h2>Tasks to do - {tasksToDo}</h2>
-				<ul>
-					{todos.map((todo) => (
-						!todo.completed && 
-						<li key={todo.id}>
-							<span>{todo.text}</span>
-							<button className="check-todo" onClick={() => toggleTodoComplete(todo.id)}><img src="/checkmark.svg" width="25" height="25"/></button>
-							<button className="delete" onClick={() => removeTodo(todo.id)}><img src="/urn.svg" width="25" height="25"/></button>
-						</li>
-					))}
+		<>
+			<main className="main context">
+				<div className="card">
+					<label className="card__input">
+						<input 
+							className="input"
+							placeholder="Add new task"
+							value={text} 
+							onChange={e => setText(e.target.value)}
+						/>
+						<button className="button" onClick={() => addTodo(text)}><img src="/plus.svg"/></button>
+					</label>
+					<div className="task-container">
+						<h2 className="task-container__title">Tasks to do - {tasksToDo}</h2>
+						<ul className="task-container__list">
+							{todos.map((todo) => (
+								!todo.completed && 
+							<li key={todo.id} className="task-container__item">
+								<span className="todo-text">{todo.text}</span>
+								<div className="task-container__actions">
+									<button className="button" onClick={() => toggleTodoComplete(todo.id)}><img src="/checkmark.svg"/></button>
+									<button className="button" onClick={() => removeTodo(todo.id)}><img src="/urn.svg"/></button>
+								</div>
+							</li>
+							))}
+						</ul>
+					</div>
+					<div className="task-container">
+						<h2 className="task-container__title">Done - {completedTasks}</h2>
+						<ul className="task-container__list">
+							{todos.map((todo) => (
+								todo.completed && 
+							<li key={todo.id} className="task-container__item">
+								<span className="todo-text_completed">{todo.text}</span>
+								<div className="task-container__actions">
+									<button className="button" onClick={() => toggleTodoComplete(todo.id)}><img src="/cancel.svg"/></button>
+									<button className="button" onClick={() => removeTodo(todo.id)}><img src="/urn.svg"/></button>
+								</div>
+							</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</main>
+			<div className="area" >
+				<ul className="circles">
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
+					<li></li>
 				</ul>
-				<h2>Done - {completedTasks}</h2>
-				<ul>
-					{todos.map((todo) => (
-						todo.completed && 
-						<li key={todo.id}>
-							<span className="completed">{todo.text}</span>
-							<button className="cancel-todo" onClick={() => toggleTodoComplete(todo.id)}><img src="/cancel.svg" width="25" height="25"/></button>
-							<button className="delete" onClick={() => removeTodo(todo.id)}><img src="/urn.svg" width="25" height="25"/></button>
-						</li>
-					))}
-				</ul>
-			</div>
-		</main>
-	);
+			</div >
+		</>);
 } 
