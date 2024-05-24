@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-/* :root {
-  --max-width: 1100px;
-  --border-radius: 12px;
-  
-} */
+:root {
+  --background-color: #0d0714;
+  --text-color: #FFFFFF;
+  --font-color: #9E78CF;
+  --completed-color: #78CFB0;
+  --border-color: #3E1671;
+  --card-bg-color: #1d1825ab;
+  --transition: transform 0.4s ease;
+}
 /* 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -19,8 +23,8 @@
 }
 
 body {
-  background-color: #0d0714;
-  color: #FFFFFF;
+  background-color: var(--background-color);;
+  color: var(--text-color);
   font-family: Inter;
   font-size: 16px;
   font-weight: 300;
@@ -33,16 +37,21 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+  color: var(--font-color)
 }
 
 input {
   height: 40px;
   width: 100%;
   padding: 10px;
-  border: 1px solid #3E1671;
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   background: none;
-  color: #FFFFFF;
+  color: var(--text-color);
+}
+
+.icon-cancel::before {
+  content: url("/cancel.svg");
 }
 
 .button {
@@ -51,6 +60,11 @@ input {
   align-items: center;
   height: 30px;
   width: 30px;
+}
+
+.button:hover {
+  transition: var(--transition);
+  transform: scale(1.15);
 }
 
 .main {
@@ -70,7 +84,7 @@ input {
   max-width: 580px;
   margin: 50px;
   padding: 50px 65px;
-  background-color: #1d1825ab;
+  background-color: var(--card-bg-color);
   border-radius: 30px;
   z-index: 1;
 }
@@ -80,6 +94,7 @@ input {
   align-items: center;
   gap: 8px;
   width: 100%;
+  margin-bottom: 50px;
 }
 
 h2 {
@@ -87,28 +102,12 @@ h2 {
   font-weight: 500;
 }
 
-/* ul {
-  list-style: none;
-} */
-
-/* li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-} */
-
-.delete {
-  color: red;
-  cursor: pointer;
-}
-
 .todo-text {
-  color: #9E78CF;
+  color: var(--font-color);
 }
 
 .todo-text_completed {
-  color: #78CFB0;
+  color: var(--completed-color);
   text-decoration: line-through;
 }
 
@@ -135,7 +134,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 22px;
-  background-color: #0d0714;
+  background-color: var(--background-color);;
   border-radius: 10px;
   margin-bottom: 16px;
 }

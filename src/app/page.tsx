@@ -64,49 +64,57 @@ export default function Home() {
 	const tasksToDo = todos.filter(todo => !todo.completed).length;
 	const completedTasks = todos.filter(todo => todo.completed).length;
 
+
+	const submit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		addTodo(text);
+	};
+
 	return (
 		<>
 			<main className="main context">
 				<div className="card">
-					<label className="card__input">
-						<input 
-							className="input"
-							placeholder="Add new task"
-							value={text} 
-							onChange={e => setText(e.target.value)}
-						/>
-						<button className="button" onClick={() => addTodo(text)}><img src="/plus.svg"/></button>
-					</label>
-					<div className="task-container">
-						<h2 className="task-container__title">Tasks to do - {tasksToDo}</h2>
-						<ul className="task-container__list">
-							{todos.map((todo) => (
-								!todo.completed && 
-							<li key={todo.id} className="task-container__item">
-								<span className="todo-text">{todo.text}</span>
-								<div className="task-container__actions">
-									<button className="button" onClick={() => toggleTodoComplete(todo.id)}><img src="/checkmark.svg"/></button>
-									<button className="button" onClick={() => removeTodo(todo.id)}><img src="/urn.svg"/></button>
-								</div>
-							</li>
-							))}
-						</ul>
-					</div>
-					<div className="task-container">
-						<h2 className="task-container__title">Done - {completedTasks}</h2>
-						<ul className="task-container__list">
-							{todos.map((todo) => (
-								todo.completed && 
-							<li key={todo.id} className="task-container__item">
-								<span className="todo-text_completed">{todo.text}</span>
-								<div className="task-container__actions">
-									<button className="button" onClick={() => toggleTodoComplete(todo.id)}><img src="/cancel.svg"/></button>
-									<button className="button" onClick={() => removeTodo(todo.id)}><img src="/urn.svg"/></button>
-								</div>
-							</li>
-							))}
-						</ul>
-					</div>
+					<form onSubmit={submit}>
+						<label className="card__input">
+							<input 
+								className="input"
+								placeholder="Добавить новую задачу"
+								value={text} 
+								onChange={e => setText(e.target.value)}
+							/>
+							<button className="button" type="submit"><img src="/plus.svg"/></button>
+						</label>
+						<div className="task-container">
+							<h2 className="task-container__title">Задачи для выполнения -{tasksToDo}</h2>
+							<ul className="task-container__list">
+								{todos.map((todo) => (
+									!todo.completed && 
+								<li key={todo.id} className="task-container__item">
+									<span className="todo-text">{todo.text}</span>
+									<div className="task-container__actions">
+										<button className="button" onClick={() => toggleTodoComplete(todo.id)}><img src="/checkmark.svg"/></button>
+										<button className="button" onClick={() => removeTodo(todo.id)}><img className="custom-svg-icon" src="/urn.svg"/></button>
+									</div>
+								</li>
+								))}
+							</ul>
+						</div>
+						<div className="task-container">
+							<h2 className="task-container__title">Выполнено - {completedTasks}</h2>
+							<ul className="task-container__list">
+								{todos.map((todo) => (
+									todo.completed && 
+								<li key={todo.id} className="task-container__item">
+									<span className="todo-text_completed">{todo.text}</span>
+									<div className="task-container__actions">
+										<button className="button icon-cancel" onClick={() => toggleTodoComplete(todo.id)}></button>
+										<button className="button" onClick={() => removeTodo(todo.id)}><img src="/urn.svg"/></button>
+									</div>
+								</li>
+								))}
+							</ul>
+						</div>
+					</form>
 				</div>
 			</main>
 			<div className="area" >
