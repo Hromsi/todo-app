@@ -60,10 +60,10 @@ input {
   align-items: center;
   height: 30px;
   width: 30px;
+  transition: var(--transition);
 }
 
 .button:hover {
-  transition: var(--transition);
   transform: scale(1.15);
 }
 

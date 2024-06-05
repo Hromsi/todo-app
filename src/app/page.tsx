@@ -1,64 +1,18 @@
 'use client';
 
-import styles from './page.module.css';
 import { useState } from 'react';
-
-interface ITodo {
-	id: string,
-	text: string,
-	completed: boolean,
-}
-
-const TODOS = [
-	{
-		id: '1',
-		text: 'Накормить кошку',
-		completed: true,
-	},
-	{
-		id: '2',
-		text: 'Почитать книгу',
-		completed: true,
-	},
-	{
-		id: '3',
-		text: 'Повесить белье',
-		completed: false,
-	},
-	{
-		id: '4',
-		text: 'Пропылесосить',
-		completed: false,
-	},
-	{
-		id: '5',
-		text: 'Позаниматься музыкой 45 минут',
-		completed: false,
-	},
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, removeTodoById, toggleTodoComplete } from '@/lib/store/todoSlice';
+import { RootState } from '@/lib/store/store';
 
 export default function Home() {
 	const [text, setText] = useState('');
-	const [todos, setTodos] = useState<ITodo[]>(TODOS);
+	const todos = useSelector((state: RootState) => state.todos.todos);
+	const dispatch = useDispatch();
 
-	const addTodo = (text: string) => {
-		const newTodo = {
-			id: new Date().toISOString(),
-			text: text,
-			completed: false,
-		};
+	const addTask = () => {
+		dispatch(addTodo({ text }));
 		setText('');
-		setTodos(prev => [...prev, newTodo]);
-	};
-
-	const toggleTodoComplete = (id: string) => {
-		setTodos(todos.map(todo => todo.id === id? { ...todo, completed:!todo.completed } : todo
-		));
-	};
-
-	const removeTodo = (id: string) => {
-		const newTodos = todos.filter(todo => todo.id !== id);
-		setTodos(newTodos);
 	};
 
 	const tasksToDo = todos.filter(todo => !todo.completed).length;
@@ -67,7 +21,7 @@ export default function Home() {
 
 	const submit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		addTodo(text);
+		addTask();
 	};
 
 	return (
@@ -85,15 +39,15 @@ export default function Home() {
 							<button className="button" type="submit"><img src="/plus.svg"/></button>
 						</label>
 						<div className="task-container">
-							<h2 className="task-container__title">Задачи для выполнения -{tasksToDo}</h2>
+							<h2 className="task-container__title">Задачи для выполнения - {tasksToDo}</h2>
 							<ul className="task-container__list">
 								{todos.map((todo) => (
 									!todo.completed && 
 								<li key={todo.id} className="task-container__item">
 									<span className="todo-text">{todo.text}</span>
 									<div className="task-container__actions">
-										<button className="button" onClick={() => toggleTodoComplete(todo.id)}><img src="/checkmark.svg"/></button>
-										<button className="button" onClick={() => removeTodo(todo.id)}><img className="custom-svg-icon" src="/urn.svg"/></button>
+										<button className="button" onClick={() => dispatch(toggleTodoComplete(todo.id))}><img src="/checkmark.svg"/></button>
+										<button className="button" onClick={() => dispatch(removeTodoById(todo.id))}><img className="custom-svg-icon" src="/urn.svg"/></button>
 									</div>
 								</li>
 								))}
@@ -107,8 +61,8 @@ export default function Home() {
 								<li key={todo.id} className="task-container__item">
 									<span className="todo-text_completed">{todo.text}</span>
 									<div className="task-container__actions">
-										<button className="button icon-cancel" onClick={() => toggleTodoComplete(todo.id)}></button>
-										<button className="button" onClick={() => removeTodo(todo.id)}><img src="/urn.svg"/></button>
+										<button className="button icon-cancel" onClick={() => dispatch(toggleTodoComplete(todo.id))}></button>
+										<button className="button" onClick={() => dispatch(removeTodoById(todo.id))}><img src="/urn.svg"/></button>
 									</div>
 								</li>
 								))}
