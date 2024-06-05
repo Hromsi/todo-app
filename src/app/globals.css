@@ -7,6 +7,7 @@
   --completed-color: #78CFB0;
   --border-color: #3E1671;
   --card-bg-color: #1d1825ab;
+  --error-color: #cd3755;
   --transition: transform 0.4s ease;
 }
 /* 
@@ -40,7 +41,7 @@ button {
   color: var(--font-color)
 }
 
-input {
+.input {
   height: 40px;
   width: 100%;
   padding: 10px;
@@ -48,6 +49,10 @@ input {
   border-radius: 10px;
   background: none;
   color: var(--text-color);
+}
+
+.input_error {
+  border: 1px solid var(--error-color);
 }
 
 .icon-cancel::before {
@@ -89,12 +94,23 @@ input {
   z-index: 1;
 }
 
-.card__input {
+.control {
+  margin-bottom: 20px;
+}
+
+.field {
   display: flex;
   align-items: center;
   gap: 8px;
   width: 100%;
-  margin-bottom: 50px;
+}
+
+.control__error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  display: flex;
+  color: var(--error-color);
 }
 
 h2 {
@@ -118,15 +134,10 @@ h2 {
   gap: 20px;
 }
 
-/* .task-container__title {
-
-} */
-
 .task-container__list {
   list-style: none;
   display: flex;
   flex-direction: column-reverse;
-  /* gap: 16px; */
 }
 
 .task-container__item {

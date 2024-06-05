@@ -7,10 +7,17 @@ import { RootState } from '@/lib/store/store';
 
 export default function Home() {
 	const [text, setText] = useState('');
+	const [isError, setIsError] = useState(false);
 	const todos = useSelector((state: RootState) => state.todos.todos);
 	const dispatch = useDispatch();
+	
 
 	const addTask = () => {
+		if (text === '') {
+			setIsError(true);
+			return;
+		}
+		setIsError(false);
 		dispatch(addTodo({ text }));
 		setText('');
 	};
@@ -28,16 +35,24 @@ export default function Home() {
 		<>
 			<main className="main context">
 				<div className="card">
-					<form onSubmit={submit}>
-						<label className="card__input">
-							<input 
-								className="input"
-								placeholder="Добавить новую задачу"
-								value={text} 
-								onChange={e => setText(e.target.value)}
-							/>
-							<button className="button" type="submit"><img src="/plus.svg"/></button>
-						</label>
+					<form onSubmit={submit} style={{ width: '100%' }}>
+						<div className="control">
+							<div className="field">
+								<input 
+									className={'input' + `${isError ? ' input_error' : ''}`}
+									placeholder="Добавить новую задачу"
+									value={text} 
+									onChange={(e) => {
+										setText(e.target.value);
+										setIsError(false);
+									}}
+								/>
+								<button className="button" type="submit"><img src="/plus.svg"/></button>
+							</div>
+							{isError ? <span className="control__error">Поле не может быть пустым. Пожалуйста, введите название задачи.</span> : null}
+						</div>
+						
+						
 						<div className="task-container">
 							<h2 className="task-container__title">Задачи для выполнения - {tasksToDo}</h2>
 							<ul className="task-container__list">
