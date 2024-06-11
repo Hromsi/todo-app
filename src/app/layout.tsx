@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
+import '../styles/styles.scss';
 import StoreProvider from '@/components/StoreProvider';
+import BackgroundAnimation from '@/components/BackgroundAnimation/index';
 
 const inter = Inter({ subsets: ['cyrillic', 'latin'] });
 
 export const metadata: Metadata = {
-	title: 'Todo app',
-	description: 'Todo list application',
+	title: 'Приложение для задач',
+	description: 'Простое приложение для управления списком задач.',
+	icons: {
+		icon: '/todo.svg',
+	},
 };
 
 export default function RootLayout({
@@ -18,8 +22,10 @@ export default function RootLayout({
 	return (
 		<html lang="ru">
 			<StoreProvider>
-				<body className={inter.className}>{children}</body>
-				{/* <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script> */}
+				<body className={inter.className} suppressHydrationWarning={true}>
+					{children}
+					<BackgroundAnimation/>
+				</body>
 			</StoreProvider>
 		</html>
 	);

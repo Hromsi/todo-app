@@ -1,0 +1,45 @@
+.control {
+    margin-bottom: 20px;
+
+    &__field {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+    }
+
+    &__error-message {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        display: flex;
+        color: var(--error-color);
+    }
+}
+
+.input {
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: none;
+    color: var(--text-color);
+
+    &::placeholder {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    &:focus {
+        outline: solid var(--pale-border-color);
+    }
+
+    &_error {
+        border: 1px solid var(--error-color);
+
+        &:focus {
+            outline: solid var(--pale-error-color);
+        }
+    }
+}

@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+/* 
+@media (prefers-color-scheme: dark) {
+  :root {
+    
+  }
+} */
+
+body {
+    background-color: var(--background-color);;
+    color: var(--text-color);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    all: initial;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--font-color)
+}
+  
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    transition: var(--transition);
+
+    &:hover {
+        transform: scale(1.15);
+    }
+}
