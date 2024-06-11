@@ -32,14 +32,16 @@
     }
 
     &:focus {
-        outline: solid var(--pale-border-color);
+        outline: none;
+        box-shadow: 0 0 0 3px var(--pale-border-color);
     }
 
     &_error {
         border: 1px solid var(--error-color);
 
         &:focus {
-            outline: solid var(--pale-error-color);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--pale-error-color);
         }
     }
 }
