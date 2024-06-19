@@ -1,15 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addTodo } from '@/lib/store/todoSlice';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTodo, setTodos } from '@/lib/store/todoSlice';
 import TodoList from '@/components/TodoList';
 import InputField from '@/components/InputField/index';
+import { loadFromLocalStorage } from '@/lib/store/utils';
+import LoadingAnimation from '@/components/LoadingAnimation';
 
 export default function Home() {
 	const [text, setText] = useState('');
 	const dispatch = useDispatch();
+	const [isLoading, setIsLoading] = useState(true);
+	
 
+	useEffect(() => {
+		setIsLoading(true);
+		const initialTodos = loadFromLocalStorage();
+		dispatch(setTodos(initialTodos));
+		setTimeout(() => setIsLoading(false), 2000);
+	}, []);
 	const submit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		// Dispatches the addTodo action if text is not empty, then clears the input field.
@@ -22,12 +32,13 @@ export default function Home() {
 	return (
 		<main>
 			<div className="card">
-				<form className="card__wrapper" onSubmit={submit}>
+				{isLoading ? <LoadingAnimation/> : <form className="card__wrapper" onSubmit={submit}>
 					<InputField value={text} handleInput={setText}/>
 					<TodoList title="Задачи для выполнения" isCompleted={false}/>
 					<TodoList title="Выполнено" isCompleted={true}/>
-				</form>
+				</form>}
 			</div>
 		</main>
+		// </>
 	);
 } 
